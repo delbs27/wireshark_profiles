@@ -1,0 +1,49 @@
+"Ethernet address 00:08:15:00:08:15" eth.addr == 00:08:15:00:08:15
+"Ethernet type 0x0806 (ARP)" eth.type == 0x0806
+"Ethernet broadcast" eth.addr == ff:ff:ff:ff:ff:ff
+"No ARP" not arp
+"IP only" ip
+"IP address 192.168.0.1" ip.addr == 192.168.0.1
+"IP address isn't 192.168.0.1, don't use != for this!" !(ip.addr == 192.168.0.1)
+"TCP only" tcp
+"UDP only" udp
+"Non-DNS" !(udp.port == 53 || tcp.port == 53)
+"TCP or UDP port is 80 (HTTP)" tcp.port == 80 || udp.port == 80
+"HTTP" http
+"No ARP and no DNS" not arp and !(udp.port == 53)
+"Non-HTTP and non-SMTP to/from 192.168.0.1" not (tcp.port == 80) and not (tcp.port == 25) and ip.addr == 192.168.0.1
+"Wireless 802.1X" llc.type == 0x888e
+"Wireless QoS Data" wlan.fc.type_subtype == 0x0028
+"WLAN filter by SSID/AP (replace string)" wlan.ssid == "string"
+"WLAN filter by BSSID/AP (replace MAC)" wlan.bssid == 01:02:03:04:05:06
+"WLAN Traffic To or From a Station" (wlan.ta == 01:02:03:04:05:06) || (wlan.ra == 01:02:03:04:05:06)
+"WLAN filter by Destination (replace MAC)" wlan.da == 01:02:03:04:05:06
+"WLAN filter by Source (replace MAC)" wlan.sa == 01:02:03:04:05:06
+"WLAN filter by Receiver (replace MAC)" wlan.ra == 01:02:03:04:05:06
+"WLAN filter by Transmitter (replace MAC)" wlan.ta == 01:02:03:04:05:06
+"WLAN filter by MAC (replace MAC)" wlan.addr == 01:02:03:04:05:06
+"WLAN Null Data Frames" (wlan.fc.type == 2)&&(wlan.fc.type_subtype == 0x0024)
+"WLAN Data Frames" wlan.fc.type eq 2
+"WLAN Announce TIM Frames" (wlan.fc.type == 1)&&(wlan.fc.subtype == 9)
+"WLAN Block ACK Frames" (wlan.fc.type == 1)&&(wlan.fc.type_subtype == 25)
+"WLAN Block ACK Request" (wlan.fc.type == 1)&&(wlan.fc.type_subtype == 24)
+"WLAN ACK Frames" (wlan.fc.type == 1)&&(wlan.fc.type_subtype == 29)
+"WLAN Ready To Send and Clear To Send pairs" (wlan.fc.type == 1)&&((wlan.fc.type_subtype == 27)||(wlan.fc.type_subtype== 28))
+"WLAN Clear To Send - CTS" (wlan.fc.type == 1)&&(wlan.fc.type_subtype == 28)
+"WLAN Ready To Send - RTS" (wlan.fc.type == 1)&&(wlan.fc.type_subtype == 27)
+"WLAN Control Frames" wlan.fc.type eq 1
+"WLAN Action Frames" (wlan.fc.type == 0)&&(wlan.fc.type_subtype == 0x0d)
+"WLAN Probe Request or Probe Responses" (wlan.fc.type == 0)&&((wlan.fc.type_subtype == 0x0004)||(wlan.fc.type_subtype == 0x0005))
+"WLAN Probe Responses" (wlan.fc.type == 0)&&(wlan.fc.type_subtype == 0x0005)
+"WLAN Probe Requests" (wlan.fc.type == 0)&&(wlan.fc.type_subtype == 0x0004)
+"WLAN Disassociation Frames" (wlan.fc.type == 0)&&(wlan.fc.type_subtype == 0x0a)
+"WLAN Re-association Requests & Responses" (wlan.fc.type == 0)&&((wlan.fc.type_subtype == 0x0002)||(wlan.fc.type_subtype == 0x0003))
+"WLAN Re-association Responses" (wlan.fc.type == 0)&&(wlan.fc.type_subtype == 0x0003)
+"WLAN Re-association Requests" (wlan.fc.type == 0)&&(wlan.fc.type_subtype == 0x0002)
+"WLAN Association Requests & Responses" (wlan.fc.type == 0)&&((wlan.fc.type_subtype == 0x0000)||(wlan.fc.type_subtype == 0x0001))
+"WLAN Association Responses" (wlan.fc.type == 0)&&(wlan.fc.type_subtype == 0x0001)
+"WLAN Association Requests" (wlan.fc.type == 0)&&(wlan.fc.type_subtype == 0x0000)
+"WLAN De-Authentication" (wlan.fc.type == 0)&&(wlan.fc.type_subtype == 0x0c)
+"WLAN Authentication" (wlan.fc.type == 0)&&(wlan.fc.type_subtype == 0x0b)
+"WLAN Beacon Frames" (wlan.fc.type == 0)&&(wlan.fc.type_subtype == 0x0008)
+"WLAN Management Frames" wlan.fc.type eq 0
